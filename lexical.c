@@ -48,25 +48,42 @@ bool isSeparator(const char *buffer)
     return isStringInArray(keyWords, buffer, numKeywords);
 }
 
-void exec_code(const char* path)
+char fileToString(FILE *file)
+{
+	char buffer[1024];
+	int position = 0;
+	char character;
+
+	while ((character = fgetc(file)) != EOF)
+	{
+		buffer[position++] = character;
+	}
+
+	buffer[position] = '\0';
+	return buffer;
+}
+
+void printAllTokenTypes(const char* string, int size)
+{
+
+}
+
+void executeCode(const char* path)
 {
 	FILE *file = fopen(path, "r");
 	
 	if (file == NULL)
 		printf("error to open the file");
 
-	char character;
-
-	while ((character = fgetc(file)) != EOF)
-	{
-		printf("%c\n", character);
-	}
+	char code[] = fileToString(file);
+	int size = sizeof(code);
+	printAllTokenTypes(code, size)
 }
 
 int main() 
 {
 	int *tokens = malloc(10 * sizeof(int));
 
-    exec_code("code.txt");
+    executeCode("code.txt");
     return 0;
 }
