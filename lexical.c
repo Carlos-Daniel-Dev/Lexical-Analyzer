@@ -50,14 +50,23 @@ bool isSeparator(const char *buffer)
 
 void exec_code(const char* path)
 {
+	FILE *file = fopen(path, "r");
+	
+	if (file == NULL)
+		printf("error to open the file");
 
+	char character;
+
+	while ((character = fgetc(file)) != EOF)
+	{
+		printf("%c\n", character);
+	}
 }
 
 int main() 
 {
 	int *tokens = malloc(10 * sizeof(int));
 
-    bool response = isKeyWord("float");
-    printf("%d\n", response);
+    exec_code("code.txt");
     return 0;
 }
