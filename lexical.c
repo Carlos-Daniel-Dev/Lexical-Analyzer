@@ -15,11 +15,6 @@ enum TokenType {
     ERROR
 };
 
-struct Lexeme
-{
-    int tokenType;
-};
-
 bool isStringInArray(const char* array[], const char* string, int size) 
 {
     for (int i = 0; i < size; i++) {
@@ -30,77 +25,81 @@ bool isStringInArray(const char* array[], const char* string, int size)
     return false;
 }
 
-bool isKeyWord(const char *buffer) 
+bool isKeyword(const char *buffer) 
 {
-    const char *keyWords[11] = {"void", "char", "int", "float", "double", "+", "-", "*", "/", "="};
-    int numKeywords = sizeof(keyWords) / sizeof(keyWords[0]);
+    const char *keywords[11] = {"void", "char", "int", "float", "double", "+", "-", "*", "/", "="};
+    int numKeywords = sizeof(keywords) / sizeof(keywords[0]);
 
-    return isStringInArray(keyWords, buffer, numKeywords);
+    return isStringInArray(keywords, buffer, numKeywords);
 }
 
 bool isDataType(const char *buffer) 
 {
-    const char *keyWords[5] = {"void", "char", "int", "float", "double"};
-    int numKeywords = sizeof(keyWords) / sizeof(keyWords[0]);
+    const char *keywords[5] = {"void", "char", "int", "float", "double"};
+    int numKeywords = sizeof(keywords) / sizeof(keywords[0]);
 
-    return isStringInArray(keyWords, buffer, numKeywords);
+    return isStringInArray(keywords, buffer, numKeywords);
 }
 
 bool isSeparator(const char *buffer) 
 {
-    const char *keyWords[3] = {" ", ";", ","};
-    int numKeywords = sizeof(keyWords) / sizeof(keyWords[0]);
+    const char *separators[3] = {" ", ";", ","};
+    int numSeparators = sizeof(separators) / sizeof(separators[0]);
 
-    return isStringInArray(keyWords, buffer, numKeywords);
+    return isStringInArray(separators, buffer, numSeparators);
 }
 
-char fileToString(FILE *file)
+char* fileToString(FILE *file)
 {
-	char *buffer = malloc(1024 * sizeof(char));
-	int position = 0;
-	char character;
+    char *buffer = malloc(1024 * sizeof(char));
+    int position = 0;
+    char character;
 
-	while ((character = fgetc(file)) != EOF)
-	{
-		buffer[position++] = character;
-	}
+    while ((character = fgetc(file)) != EOF)
+    {
+        buffer[position++] = character;
+    }
 
-	buffer[position] = '\0';
-	return buffer;
+    buffer[position] = '\0';
+    return buffer;
 }
 
-void printAllTokenTypes(const char* string, int size)
+void printAllTokenTypes(const char* string)
 {
-	int left = 0;
-	int right = 0;
-	
-	while(left != '\0' || right != '\0')
-	{
-		right++;
+    int position = 0;
+    while (string[position] != '\0')
+    {
+        printf("%c", string[position]);
+        if (isSeparator(&string[position]))
+        {
+            printf("\n");
+            printf("Separator found at position %d, %c\n", position, string[position]);
+        }
+        position++;
+    }
+}
 
-		if (isSeparator(string[right]))
-		{
-			printf("separator found at %d", right);
-		}
-	}
+FILE *getFile(const char* path)
+{
+    FILE *file = fopen(path, "r");
+    
+    if (file == NULL)
+        printf("Error: Failed to open the file\n");
+    return file;
 }
 
 void executeCode(const char* path)
 {
-	FILE *file = fopen(path, "r");
-	
-	if (file == NULL)
-		printf("error to open the file");
+	FILE *file = getFile(path);
+	char *code = fileToString(file);
+	printAllTokenTypes(code);
+	free(code);
+	fclose(file);
 
-	char code[] = fileToString(file);
-	int size = sizeof(code);
-	printAllTokenTypes(code, size)
 }
 
 int main() 
 {
-	int *tokens = malloc(10 * sizeof(int));
-
     executeCode("code.txt");
     return 0;
 }
