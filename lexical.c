@@ -3,11 +3,17 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define KEYWORD 	1
-#define IDENTIFIER 	2
-#define OPERATOR 	3
-#define CONSTANT 	4
-#define SEPARATOR 	5
+enum TokenType {
+    INT,
+    ID,
+    ASSIGN,
+    NUMBER,
+    SEMICOLON,
+    PRINT,
+    LPAREN,
+    RPAREN,
+    ERROR
+};
 
 struct Lexeme
 {
@@ -50,7 +56,7 @@ bool isSeparator(const char *buffer)
 
 char fileToString(FILE *file)
 {
-	char buffer[1024];
+	char *buffer = malloc(1024 * sizeof(char));
 	int position = 0;
 	char character;
 
@@ -65,7 +71,18 @@ char fileToString(FILE *file)
 
 void printAllTokenTypes(const char* string, int size)
 {
+	int left = 0;
+	int right = 0;
+	
+	while(left != '\0' || right != '\0')
+	{
+		right++;
 
+		if (isSeparator(string[right]))
+		{
+			printf("separator found at %d", right);
+		}
+	}
 }
 
 void executeCode(const char* path)
