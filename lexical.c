@@ -25,6 +25,7 @@ bool isStringInArray(const char* array[], const char* string, int size)
     return false;
 }
 
+
 bool isKeyword(const char *buffer) 
 {
     const char *keywords[11] = {"void", "char", "int", "float", "double", "+", "-", "*", "/", "="};
@@ -49,6 +50,55 @@ bool isSeparator(const char *buffer)
     return isStringInArray(separators, buffer, numSeparators);
 }
 
+void printAllTokenTypes(const char* string)
+{
+    int position = 0;
+    while (string[position] != '\0')
+    {
+
+        if (isspace(string[position])) {
+            position++;
+            continue;
+        }
+        
+        char token[256] = "";
+        int tokenIndex = 0;
+        while (string[position] != '\0' && !isSeparator(&string[position]))
+        {
+            token[tokenIndex++] = string[position++];
+        }
+        token[tokenIndex] = '\0';
+        
+        if (isKeyword(token))
+        {
+            printf("Token: Keyword - %s\n", token);
+        }
+        else if (isDataType(token))
+        {
+            printf("Token: Data Type - %s\n", token);
+        }
+        else if (isSeparator(token))
+        {
+            printf("Token: Separator - %s\n", token);
+        }
+        else
+        {
+            printf("Token: Identifier/Number - %s\n", token);
+        }
+    }
+}
+
+
+FILE *getFile(const char* path)
+{
+    FILE *file = fopen(path, "r");
+    
+    if (file == NULL)
+        printf("Error: Failed to open the file\n");
+    return file;
+}
+
+
 char* fileToString(FILE *file)
 {
     char *buffer = malloc(1024 * sizeof(char));
@@ -64,29 +114,6 @@ char* fileToString(FILE *file)
     return buffer;
 }
 
-void printAllTokenTypes(const char* string)
-{
-    int position = 0;
-    while (string[position] != '\0')
-    {
-        printf("%c", string[position]);
-        if (isSeparator(&string[position]))
-        {
-            printf("\n");
-            printf("Separator found at position %d, %c\n", position, string[position]);
-        }
-        position++;
-    }
-}
-
-FILE *getFile(const char* path)
-{
-    FILE *file = fopen(path, "r");
-    
-    if (file == NULL)
-        printf("Error: Failed to open the file\n");
-    return file;
-}
 
 void executeCode(const char* path)
 {
