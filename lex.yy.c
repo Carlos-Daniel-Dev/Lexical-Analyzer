@@ -443,9 +443,10 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "src/lexical.l"
 #line 2 "src/lexical.l"
-#include <stdio.h>
-#line 448 "lex.yy.c"
+
+
 #line 449 "lex.yy.c"
+#line 450 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -662,10 +663,10 @@ YY_DECL
 		}
 
 	{
-#line 5 "src/lexical.l"
+#line 6 "src/lexical.l"
 
 
-#line 669 "lex.yy.c"
+#line 670 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -724,41 +725,41 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 7 "src/lexical.l"
+#line 8 "src/lexical.l"
 { printf("Integer: %s\n", yytext); }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 8 "src/lexical.l"
+#line 9 "src/lexical.l"
 { printf("Identifier: %s\n", yytext); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 9 "src/lexical.l"
+#line 10 "src/lexical.l"
 { printf("Operator: %c\n", yytext[0]); }
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 10 "src/lexical.l"
+#line 11 "src/lexical.l"
 { /* Do nothing, just consume the newline */ }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 11 "src/lexical.l"
+#line 12 "src/lexical.l"
 { /* Do nothing, just consume spaces and tabs */ }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 13 "src/lexical.l"
+#line 14 "src/lexical.l"
 { printf("Unrecognized character: %c\n", yytext[0]); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 15 "src/lexical.l"
+#line 16 "src/lexical.l"
 ECHO;
 	YY_BREAK
-#line 762 "lex.yy.c"
+#line 763 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1763,11 +1764,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 15 "src/lexical.l"
-
-
-int main() {
-    yylex();
-    return 0;
-}
+#line 16 "src/lexical.l"
 

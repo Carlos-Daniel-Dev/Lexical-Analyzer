@@ -1,1 +1,1 @@
-flex src/lexical.l && gcc -o output/lexer lex.yy.c -lfl
+flex src/lexical.l && gcc -o output/lexical lex.yy.c -lfl

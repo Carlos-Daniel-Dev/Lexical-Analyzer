@@ -1,5 +1,6 @@
 %{
-#include <stdio.h>
+
+
 %}
 
 %%
@@ -13,8 +14,3 @@
 .                       { printf("Unrecognized character: %c\n", yytext[0]); }
 
 %%
-
-int main() {
-    yylex();
-    return 0;
-}
